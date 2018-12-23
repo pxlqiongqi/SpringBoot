@@ -1,11 +1,23 @@
 package com.pxl.interceptors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 
 @Configuration
-public class InterceptorConfigurer 
-        implements WebMvcConfigurer {
+//springboot1.0
+public class InterceptorConfigurer extends WebMvcConfigurerAdapter {
+	@Autowired
+	private TestInterceptor testInterceptor;
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(testInterceptor);
+	}
+}
+/*
+//springboot2.0
+public class InterceptorConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -15,4 +27,4 @@ public class InterceptorConfigurer
         registry.addInterceptor(new TestInterceptor()).addPathPatterns("/**");
     }
 
-}
+}*/
